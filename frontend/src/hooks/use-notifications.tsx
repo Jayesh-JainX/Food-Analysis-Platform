@@ -6,7 +6,7 @@ import {
   requestNotificationPermission,
   showDeviceNotification,
 } from "@/utils/notifications";
-import type { Notification as DatabaseNotification } from "@/integrations/supabase/database-types";
+import type { DbNotificationRow } from "@/integrations/supabase/database-types";
 
 export type NotificationType =
   | "food_scan_low_score"
@@ -118,28 +118,28 @@ export function useNotifications() {
     if (user) {
       fetchNotifications();
       fetchPreferences();
-      setupRealtimeSubscription();
-
-      // Request notification permission on first load if user has push notifications enabled
-      if (preferences?.push_notifications) {
-        requestNotificationPermission().catch(console.error);
-      }
     } else {
       setNotifications([]);
       setPreferences(null);
       setLoading(false);
     }
-  }, [user, preferences?.push_notifications]);
+  }, [user?.id]);
 
+  // Set up real-time subscription for notifications with proper channel cleanup
   useEffect(() => {
-    setUnreadCount(notifications.filter((n) => !n.read).length);
-  }, [notifications]);
-
-  const setupRealtimeSubscription = () => {
     if (!user) return;
 
-    const subscription = supabase
-      .channel("notifications")
+    const channelName = `notifications-${user.id}`;
+
+    // Purge any existing channel with the same name/topic to prevent duplicate subscription errors
+    supabase.getChannels().forEach((c) => {
+      if (c.topic === channelName || c.topic === `realtime:${channelName}`) {
+        supabase.removeChannel(c);
+      }
+    });
+
+    const channel = supabase
+      .channel(channelName)
       .on(
         "postgres_changes",
         {
@@ -150,7 +150,7 @@ export function useNotifications() {
         },
         async (payload) => {
           const newNotification = transformDatabaseNotification(
-            payload.new as DatabaseNotification
+            payload.new as DbNotificationRow
           );
           setNotifications((prev) => [newNotification, ...prev]);
 
@@ -171,9 +171,20 @@ export function useNotifications() {
       .subscribe();
 
     return () => {
-      subscription.unsubscribe();
+      supabase.removeChannel(channel);
     };
-  };
+  }, [user?.id]);
+
+  // Request notification permission if push notifications enabled
+  useEffect(() => {
+    if (user && preferences?.push_notifications) {
+      requestNotificationPermission().catch(console.error);
+    }
+  }, [user?.id, preferences?.push_notifications]);
+
+  useEffect(() => {
+    setUnreadCount(notifications.filter((n) => !n.read).length);
+  }, [notifications]);
 
   const fetchNotifications = async (isLoadMore = false) => {
     if (!user) return;
@@ -212,7 +223,8 @@ export function useNotifications() {
 
       // Update pagination state
       if (data && data.length > 0) {
-        setLastFetchedDate(data[data.length - 1].created_at);
+        const typedData = data as DbNotificationRow[];
+        setLastFetchedDate(typedData[typedData.length - 1].created_at);
         setHasMore(data.length === NOTIFICATIONS_PER_PAGE);
       } else {
         setHasMore(false);
@@ -249,7 +261,8 @@ export function useNotifications() {
 
       // Update pagination state
       if (data && data.length > 0) {
-        setLastFetchedDate(data[data.length - 1].created_at);
+        const typedData = data as DatabaseNotification[];
+        setLastFetchedDate(typedData[typedData.length - 1].created_at);
         setHasMore(data.length === NOTIFICATIONS_PER_PAGE);
       } else {
         setHasMore(false);
@@ -385,7 +398,7 @@ export function useNotifications() {
 
       if (error) throw error;
 
-      setPreferences(data);
+      setPreferences(data as NotificationPreferences);
       toast.success("Notification preferences updated");
     } catch (error) {
       console.error("Error updating notification preferences:", error);
@@ -394,7 +407,7 @@ export function useNotifications() {
   };
 
   const transformDatabaseNotification = (
-    dbNotification: DatabaseNotification
+    dbNotification: DbNotificationRow
   ): Notification => ({
     id: dbNotification.id,
     title: dbNotification.title,
@@ -456,7 +469,7 @@ export function useNotifications() {
           p_type: type,
           p_priority: priority,
           p_data: notificationData,
-          p_action_url: actionUrl,
+          p_action_url: actionUrl ?? "",
         }
       );
 

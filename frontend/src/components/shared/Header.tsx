@@ -21,6 +21,7 @@ import {
 import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
+import { ProfileRecord } from "@/integrations/supabase/database-types";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DashboardNavigation } from "../dashboard/DashboardNavigation";
 import { NotificationsPopover } from "@/components/ui/notifications-popover";
@@ -46,13 +47,18 @@ export function Header({ showNavigation = true }: DashboardHeaderProps) {
   // Function to get fresh avatar URL with cache busting
   const getFreshAvatarUrl = async (userId: string) => {
     try {
-      const { data: profile, error } = await supabase
+      const { data, error } = await supabase
         .from("profiles")
         .select("avatar_url, updated_at")
         .eq("id", userId)
         .single();
 
       if (error) throw error;
+
+      const profile = data as Pick<
+        ProfileRecord,
+        "avatar_url" | "updated_at"
+      > | null;
 
       if (profile?.avatar_url) {
         // Use updated_at timestamp for cache busting
@@ -81,11 +87,16 @@ export function Header({ showNavigation = true }: DashboardHeaderProps) {
 
       if (error) throw error;
 
-      if (data) {
-        setFullName(data.full_name || "");
+      const profile = data as Pick<
+        ProfileRecord,
+        "full_name" | "avatar_url" | "updated_at"
+      > | null;
+
+      if (profile) {
+        setFullName(profile.full_name || "");
 
         // Get fresh avatar URL with cache busting
-        if (data.avatar_url) {
+        if (profile.avatar_url) {
           const freshAvatarUrl = await getFreshAvatarUrl(user.id);
           setAvatarUrl(freshAvatarUrl);
           setAvatarKey((prev) => prev + 1); // Force re-render
@@ -94,8 +105,8 @@ export function Header({ showNavigation = true }: DashboardHeaderProps) {
           setAvatarKey((prev) => prev + 1);
         }
 
-        const initials = data.full_name
-          ? data.full_name
+        const initials = profile.full_name
+          ? profile.full_name
               .split(" ")
               .map((n) => n[0])
               .join("")
@@ -114,8 +125,15 @@ export function Header({ showNavigation = true }: DashboardHeaderProps) {
       fetchUserProfile();
 
       // Set up real-time subscription for profile changes
-      const subscription = supabase
-        .channel(`profile-changes-${user.id}`)
+      const channelName = `profile-changes-${user.id}`;
+      supabase.getChannels().forEach((c) => {
+        if (c.topic === channelName || c.topic === `realtime:${channelName}`) {
+          supabase.removeChannel(c);
+        }
+      });
+
+      const channel = supabase
+        .channel(channelName)
         .on(
           "postgres_changes",
           {
@@ -143,7 +161,7 @@ export function Header({ showNavigation = true }: DashboardHeaderProps) {
       window.addEventListener("avatarUpdated", handleAvatarUpdate);
 
       return () => {
-        subscription.unsubscribe();
+        supabase.removeChannel(channel);
         window.removeEventListener("avatarUpdated", handleAvatarUpdate);
       };
     }

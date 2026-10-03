@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -17,7 +16,10 @@ import { formatTime } from "@/lib/utils";
 
 interface EditableMealProps {
   meal: NutritionMeal;
-  onUpdate: (mealId: string, updatedMeal: Partial<NutritionMeal>) => Promise<void>;
+  onUpdate: (
+    mealId: string,
+    updatedMeal: Partial<NutritionMeal>
+  ) => Promise<void>;
   onDelete: (mealId: string) => Promise<void>;
 }
 
@@ -30,7 +32,7 @@ export function EditableMeal({ meal, onUpdate, onDelete }: EditableMealProps) {
     protein: meal.protein,
     carbs: meal.carbs,
     fat: meal.fat,
-    serving_size: meal.serving_size
+    serving_size: meal.serving_size,
   });
   const [isSaving, setIsSaving] = useState(false);
 
@@ -47,11 +49,15 @@ export function EditableMeal({ meal, onUpdate, onDelete }: EditableMealProps) {
   };
 
   const handleChange = (field: keyof NutritionMeal, value: any) => {
-    setUpdatedMeal(prev => ({
+    setUpdatedMeal((prev) => ({
       ...prev,
-      [field]: field === 'calories' || field === 'protein' || field === 'carbs' || field === 'fat' 
-        ? parseInt(value) || 0 
-        : value
+      [field]:
+        field === "calories" ||
+        field === "protein" ||
+        field === "carbs" ||
+        field === "fat"
+          ? parseInt(value) || 0
+          : value,
     }));
   };
 
@@ -63,17 +69,17 @@ export function EditableMeal({ meal, onUpdate, onDelete }: EditableMealProps) {
             <div className="flex justify-between items-center">
               <h3 className="font-medium">Edit Meal</h3>
               <div className="flex gap-2">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => setIsEditing(false)}
                   className="h-8 w-8 p-0"
                 >
                   <X className="h-4 w-4" />
                 </Button>
-                <Button 
-                  variant="default" 
-                  size="sm" 
+                <Button
+                  variant="default"
+                  size="sm"
                   onClick={handleUpdate}
                   disabled={isSaving}
                   className="h-8 w-8 p-0"
@@ -82,22 +88,22 @@ export function EditableMeal({ meal, onUpdate, onDelete }: EditableMealProps) {
                 </Button>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="meal-name">Meal Name</Label>
-                <Input 
-                  id="meal-name" 
-                  value={updatedMeal.name} 
-                  onChange={(e) => handleChange('name', e.target.value)}
+                <Input
+                  id="meal-name"
+                  value={updatedMeal.name}
+                  onChange={(e) => handleChange("name", e.target.value)}
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="meal-type">Meal Type</Label>
-                <Select 
-                  value={updatedMeal.meal_type} 
-                  onValueChange={(value) => handleChange('meal_type', value)}
+                <Select
+                  value={updatedMeal.meal_type}
+                  onValueChange={(value) => handleChange("meal_type", value)}
                 >
                   <SelectTrigger id="meal-type">
                     <SelectValue placeholder="Select meal type" />
@@ -111,57 +117,57 @@ export function EditableMeal({ meal, onUpdate, onDelete }: EditableMealProps) {
                 </Select>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="serving-size">Serving Size</Label>
-                <Input 
-                  id="serving-size" 
-                  value={updatedMeal.serving_size || ''} 
-                  onChange={(e) => handleChange('serving_size', e.target.value)}
+                <Input
+                  id="serving-size"
+                  value={updatedMeal.serving_size || ""}
+                  onChange={(e) => handleChange("serving_size", e.target.value)}
                   placeholder="e.g., 1 cup"
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="meal-calories">Calories</Label>
-                <Input 
-                  id="meal-calories" 
-                  type="number" 
-                  value={updatedMeal.calories} 
-                  onChange={(e) => handleChange('calories', e.target.value)}
+                <Input
+                  id="meal-calories"
+                  type="number"
+                  value={updatedMeal.calories}
+                  onChange={(e) => handleChange("calories", e.target.value)}
                 />
               </div>
             </div>
-            
+
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="meal-protein">Protein (g)</Label>
-                <Input 
-                  id="meal-protein" 
-                  type="number" 
-                  value={updatedMeal.protein} 
-                  onChange={(e) => handleChange('protein', e.target.value)}
+                <Input
+                  id="meal-protein"
+                  type="number"
+                  value={updatedMeal.protein}
+                  onChange={(e) => handleChange("protein", e.target.value)}
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="meal-carbs">Carbs (g)</Label>
-                <Input 
-                  id="meal-carbs" 
-                  type="number" 
-                  value={updatedMeal.carbs} 
-                  onChange={(e) => handleChange('carbs', e.target.value)}
+                <Input
+                  id="meal-carbs"
+                  type="number"
+                  value={updatedMeal.carbs}
+                  onChange={(e) => handleChange("carbs", e.target.value)}
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="meal-fat">Fat (g)</Label>
-                <Input 
-                  id="meal-fat" 
-                  type="number" 
-                  value={updatedMeal.fat} 
-                  onChange={(e) => handleChange('fat', e.target.value)}
+                <Input
+                  id="meal-fat"
+                  type="number"
+                  value={updatedMeal.fat}
+                  onChange={(e) => handleChange("fat", e.target.value)}
                 />
               </div>
             </div>
@@ -181,19 +187,19 @@ export function EditableMeal({ meal, onUpdate, onDelete }: EditableMealProps) {
                   {meal.serving_size && ` · ${meal.serving_size}`}
                 </p>
               </div>
-              
+
               <div className="flex gap-2">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => setIsEditing(true)}
                   className="h-8 w-8 p-0"
                 >
                   <Edit className="h-4 w-4" />
                 </Button>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => onDelete(meal.id)}
                   className="h-8 w-8 p-0 text-destructive hover:text-destructive"
                 >
@@ -201,7 +207,7 @@ export function EditableMeal({ meal, onUpdate, onDelete }: EditableMealProps) {
                 </Button>
               </div>
             </div>
-            
+
             <div className="mt-4 grid grid-cols-4 gap-2 text-center">
               <div>
                 <p className="text-lg font-semibold">{meal.calories}</p>

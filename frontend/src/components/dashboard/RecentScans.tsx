@@ -1,6 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -26,14 +32,14 @@ export function RecentScans() {
     try {
       setLoading(true);
       const { data, error } = await supabase
-        .from('food_scans')
-        .select('*')
-        .eq('user_id', user?.id)
-        .order('scan_date', { ascending: false })
+        .from("food_scans")
+        .select("*")
+        .eq("user_id", user?.id)
+        .order("scan_date", { ascending: false })
         .limit(3);
-      
+
       if (error) throw error;
-      
+
       setScans(data || []);
     } catch (error) {
       console.error("Error fetching recent scans:", error);
@@ -59,7 +65,10 @@ export function RecentScans() {
         {loading ? (
           <div className="space-y-4">
             {[...Array(3)].map((_, i) => (
-              <div key={i} className="flex items-center gap-4 p-3 rounded-lg border">
+              <div
+                key={i}
+                className="flex items-center gap-4 p-3 rounded-lg border"
+              >
                 <Skeleton className="h-16 w-16 rounded-md" />
                 <div className="flex-grow">
                   <Skeleton className="h-5 w-2/3 mb-2" />
@@ -72,16 +81,16 @@ export function RecentScans() {
         ) : scans.length > 0 ? (
           <div className="space-y-4">
             {scans.map((scan) => (
-              <div 
+              <div
                 key={scan.id}
                 className="flex items-center gap-4 p-3 rounded-lg border hover:bg-accent/50 transition-colors cursor-pointer"
                 onClick={() => navigate(`/scan/${scan.id}`)}
               >
-                <div 
-                  className="h-16 w-16 rounded-md bg-cover bg-center shrink-0" 
+                <div
+                  className="h-16 w-16 rounded-md bg-cover bg-center shrink-0"
                   style={{ backgroundImage: `url(${scan.image_url})` }}
                 ></div>
-                
+
                 <div className="flex-grow">
                   <div className="font-medium">{scan.name}</div>
                   <div className="flex items-center gap-2">
@@ -93,9 +102,11 @@ export function RecentScans() {
                     </span>
                   </div>
                 </div>
-                
-                <div 
-                  className={`h-10 w-10 rounded-full flex items-center justify-center text-white font-medium ${getScoreColor(scan.health_score)}`}
+
+                <div
+                  className={`h-10 w-10 rounded-full flex items-center justify-center text-white font-medium ${getScoreColor(
+                    scan.health_score
+                  )}`}
                 >
                   {scan.health_score}
                 </div>
@@ -112,8 +123,8 @@ export function RecentScans() {
         )}
       </CardContent>
       <CardFooter>
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           className="w-full"
           onClick={() => navigate("/scan-history")}
         >

@@ -1,4 +1,3 @@
-
 // Define types for all database tables
 export interface HealthMetrics {
   id: string;
@@ -74,25 +73,26 @@ export interface NutritionMeal {
   updated_at: string;
 }
 
-export type UserRole = 'user' | 'admin';
+export type UserRole = "user" | "admin";
 
 // Notification types
-export type NotificationType = 
-  | 'food_scan_low_score'
-  | 'welcome'
-  | 'achievement'
-  | 'health_update'
-  | 'nutrition_reminder'
-  | 'system_update'
-  | 'security_alert'
-  | 'subscription_update'
-  | 'daily_summary'
-  | 'goal_reached'
-  | 'streak_milestone';
+export type NotificationType =
+  | "food_scan_low_score"
+  | "welcome"
+  | "achievement"
+  | "health_update"
+  | "nutrition_reminder"
+  | "system_update"
+  | "security_alert"
+  | "subscription_update"
+  | "daily_summary"
+  | "goal_reached"
+  | "streak_milestone";
 
-export type NotificationPriority = 'low' | 'medium' | 'high' | 'critical';
+export type NotificationPriority = "low" | "medium" | "high" | "critical";
 
-export interface Notification {
+// prefixed with Db to avoid name collisions with local UI types in hooks
+export interface DbNotificationRow {
   id: string;
   user_id: string;
   title: string;
@@ -100,14 +100,14 @@ export interface Notification {
   type: NotificationType;
   priority: NotificationPriority;
   read: boolean;
-  data: any;
+  data: unknown;
   action_url: string | null;
   expires_at: string | null;
   created_at: string;
   updated_at: string;
 }
 
-export interface NotificationPreferences {
+export interface DbNotificationPreferencesRow {
   id: string;
   user_id: string;
   food_scan_low_score: boolean;
@@ -127,112 +127,139 @@ export interface NotificationPreferences {
   updated_at: string;
 }
 
-// Database tables for Supabase
-export type Tables = {
-  health_metrics: HealthMetrics;
-  food_scans: FoodScan;
-  nutrition_meals: NutritionMeal;
-  notifications: Notification;
-  notification_preferences: NotificationPreferences;
-  profiles: {
-    id: string;
-    full_name: string | null;
-    avatar_url: string | null;
-    role: UserRole;
-    onboarded: boolean;
-    subscription_tier: string;
-    interests: string[] | null;
-    daily_calories_target: number;
-    daily_protein_target: number;
-    daily_carbs_target: number;
-    daily_fat_target: number;
-    daily_fiber_target: number;
-    daily_sugar_limit: number;
-    dietary_restrictions: string[];
-    meal_reminders: boolean;
-    meal_types: string[];
-    created_at: string;
-    updated_at: string;
-  };
-  blog_posts: {
-    id: string;
-    title: string;
-    content: string;
-    excerpt: string;
-    cover_image: string;
-    author: any;
-    category: string;
-    status: string;
-    read_time: number;
-    created_at: string;
-    updated_at: string;
-  };
-  subscriptions: {
-    id: string;
-    user_id: string;
-    plan: string;
-    status: string;
-    amount: number;
-    current_period_start: string;
-    current_period_end: string;
-    created_at: string;
-    updated_at: string;
-  };
-  user_roles: UserRole;
+export interface UserRoleRecord {
+  id: string;
+  user_id: string;
+  role: UserRole;
+  created_at?: string;
 }
 
-// Updated Database Type
+export interface ProfileRecord {
+  id: string;
+  full_name: string | null;
+  avatar_url: string | null;
+  role: UserRole;
+  onboarded: boolean;
+  subscription_tier: string;
+  interests: string[] | null;
+  daily_calories_target: number;
+  daily_protein_target: number;
+  daily_carbs_target: number;
+  daily_fat_target: number;
+  daily_fiber_target: number;
+  daily_sugar_limit: number;
+  dietary_restrictions: string[];
+  meal_reminders: boolean;
+  meal_types: string[];
+  created_at: string;
+  updated_at: string;
+}
+
+export interface BlogPostRecord {
+  id: string;
+  title: string;
+  content: string;
+  excerpt: string;
+  cover_image: string;
+  author: unknown;
+  category: string;
+  status: string;
+  read_time: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface SubscriptionRecord {
+  id: string;
+  user_id: string;
+  plan: string;
+  status: string;
+  amount: number;
+  current_period_start: string;
+  current_period_end: string;
+  created_at: string;
+  updated_at: string;
+}
+
+// Updated Database Type - satisfies Supabase JS v2 GenericTable constraints
 export type Database = {
   public: {
     Tables: {
       health_metrics: {
         Row: HealthMetrics;
-        Insert: Omit<HealthMetrics, 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<HealthMetrics, 'id'>>;
+        Insert: Partial<HealthMetrics> & { user_id: string };
+        Update: Partial<HealthMetrics>;
+        Relationships: [];
       };
       food_scans: {
         Row: FoodScan;
-        Insert: Omit<FoodScan, 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<FoodScan, 'id'>>;
+        Insert: Partial<FoodScan> & { user_id: string; name: string };
+        Update: Partial<FoodScan>;
+        Relationships: [];
       };
       nutrition_meals: {
         Row: NutritionMeal;
-        Insert: Omit<NutritionMeal, 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<NutritionMeal, 'id'>>;
+        Insert: Partial<NutritionMeal> & { user_id: string; name: string };
+        Update: Partial<NutritionMeal>;
+        Relationships: [];
       };
       notifications: {
-        Row: Notification;
-        Insert: Omit<Notification, 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<Notification, 'id'>>;
+        Row: DbNotificationRow;
+        Insert: Partial<DbNotificationRow> & {
+          user_id: string;
+          title: string;
+          description: string;
+          type: NotificationType;
+        };
+        Update: Partial<DbNotificationRow>;
+        Relationships: [];
       };
       notification_preferences: {
-        Row: NotificationPreferences;
-        Insert: Omit<NotificationPreferences, 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<NotificationPreferences, 'id'>>;
+        Row: DbNotificationPreferencesRow;
+        Insert: Partial<DbNotificationPreferencesRow> & { user_id: string };
+        Update: Partial<DbNotificationPreferencesRow>;
+        Relationships: [];
       };
       profiles: {
-        Row: Tables['profiles'];
-        Insert: Omit<Tables['profiles'], 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<Tables['profiles'], 'id'>>;
+        Row: ProfileRecord;
+        Insert: Partial<ProfileRecord> & { id: string };
+        Update: Partial<ProfileRecord>;
+        Relationships: [];
       };
       blog_posts: {
-        Row: Tables['blog_posts'];
-        Insert: Omit<Tables['blog_posts'], 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<Tables['blog_posts'], 'id'>>;
+        Row: BlogPostRecord;
+        Insert: Partial<BlogPostRecord> & { title: string };
+        Update: Partial<BlogPostRecord>;
+        Relationships: [];
       };
       subscriptions: {
-        Row: Tables['subscriptions'];
-        Insert: Omit<Tables['subscriptions'], 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<Tables['subscriptions'], 'id'>>;
+        Row: SubscriptionRecord;
+        Insert: Partial<SubscriptionRecord> & { user_id: string; plan: string };
+        Update: Partial<SubscriptionRecord>;
+        Relationships: [];
       };
       user_roles: {
-        Row: UserRole;
-        Insert: Omit<UserRole, 'id' | 'created_at' | 'updated_at'>;
-        Update: Partial<Omit<UserRole, 'id'>>;
+        Row: UserRoleRecord;
+        Insert: Partial<UserRoleRecord> & { user_id: string; role: UserRole };
+        Update: Partial<UserRoleRecord>;
+        Relationships: [];
       };
     };
-    Views: {};
-    Functions: {};
-    Enums: {};
+    Views: Record<string, never>;
+    Functions: {
+      create_notification: {
+        Args: {
+          p_user_id: string;
+          p_title: string;
+          p_description: string;
+          p_type: NotificationType;
+          p_priority?: NotificationPriority;
+          p_data?: unknown;
+          p_action_url?: string;
+        };
+        Returns: unknown;
+      };
+    };
+    Enums: Record<string, never>;
   };
 };
