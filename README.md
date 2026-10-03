@@ -11,7 +11,13 @@
 
 **AI-Powered Food Analysis, Nutrition Tracking & Health Intelligence Platform**
 
-[Live Demo](#) • [Documentation](#) • [Report Bug](#) • [Request Feature](#)
+[Live Demo](https://wellness-ai-lens.vercel.app)
+
+<br />
+
+<!-- Project Preview Image -->
+
+![Wellness AI Lens Preview](frontend/public/preview.png)
 
 </div>
 
@@ -74,8 +80,6 @@
 ```
 Food-Analysis/
 ├── backend/                  # Node.js & Express AI Backend API
-│   ├── config/               # Server configurations & environment helpers
-│   ├── utils/                # Helper utilities
 │   ├── index.js              # Express server, Multer upload & Hugging Face SDK
 │   ├── vercel.json           # Serverless deployment configuration
 │   └── package.json          # Backend dependencies
@@ -88,8 +92,6 @@ Food-Analysis/
 │   │   ├── services/         # API integrations & Supabase client services
 │   │   └── utils/            # Helper utilities and formatters
 │   ├── public/               # Public assets (icons, images)
-│   ├── supabase/             # Database schemas (schema.sql, cron.sql)
-│   ├── goalplanner.sql       # Goal planner SQL migration script
 │   ├── netlify.toml          # Netlify build configuration
 │   ├── vercel.json           # Vercel deployment configuration
 │   ├── vite.config.ts        # Vite configuration
@@ -140,8 +142,8 @@ Food-Analysis/
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/Jayesh-JainX/Food-Analysis.git
-cd Food-Analysis
+git clone https://github.com/Jayesh-JainX/Food-Analysis-Platform.git
+cd Food-Analysis-Platform
 ```
 
 ---
@@ -164,7 +166,7 @@ cd Food-Analysis
 
 3. Start the backend development server:
    ```bash
-   npm start
+   npm run start
    ```
    _The server will run on `http://localhost:3000`._
 
@@ -195,16 +197,6 @@ cd Food-Analysis
 
 ---
 
-### Step 4: Database Setup (Supabase)
-
-Run the SQL scripts located in `frontend/supabase/` and root `frontend/goalplanner.sql` in your Supabase SQL Editor:
-
-1. `frontend/supabase/schema.sql` - Main database tables, RLS policies, and triggers.
-2. `frontend/supabase/cron.sql` - Automated cron jobs for resetting daily limits and scheduled notifications.
-3. `frontend/goalplanner.sql` - Database tables for goal planning, milestones, and habit tracking.
-
----
-
 ## 📡 Backend API Reference
 
 | Method | Endpoint       | Description                                                 |
@@ -216,27 +208,6 @@ Run the SQL scripts located in `frontend/supabase/` and root `frontend/goalplann
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps to contribute:
-
-1. **Fork the Repository**
-2. **Create a Feature Branch**:
-   ```bash
-   git checkout -b feature/AmazingFeature
-   ```
-3. **Commit your Changes**:
-   ```bash
-   git commit -m 'Add some AmazingFeature'
-   ```
-4. **Push to the Branch**:
-   ```bash
-   git push origin feature/AmazingFeature
-   ```
-5. **Open a Pull Request**
-
----
-
 ## 📄 License
 
 This project is licensed under the **MIT License**. See the `LICENSE` file for details.
@@ -245,6 +216,6 @@ This project is licensed under the **MIT License**. See the `LICENSE` file for d
 
 <div align="center">
 
-**Made with ❤️ for Hacktoberfest & Wellness Enthusiasts**
+**Made with ❤️ for Wellness Enthusiasts**
 
 </div>
