@@ -1,0 +1,28 @@
+# Wellness AI Lens - Robots.txt
+
+# Allow all search engines
+User-agent: *
+Allow: /
+
+# Disallow private and admin areas
+Disallow: /dashboard/
+Disallow: /profile/
+Disallow: /settings/
+Disallow: /analytics/
+Disallow: /scan-history/
+Disallow: /nutrition/
+Disallow: /interests/
+
+# Allow public pages
+Allow: /signin
+Allow: /signup
+Allow: /blog
+Allow: /privacy
+Allow: /terms
+Allow: /contact
+
+# Sitemap
+Sitemap: https://wellness-ai-lens.vercel.app/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1

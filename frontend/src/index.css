@@ -1,0 +1,249 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 142 76% 99%;
+    --foreground: 142 76% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 142 76% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 142 76% 10%;
+
+    --primary: 142 76% 36%;
+    --primary-foreground: 144 76% 98%;
+
+    --secondary: 201 96% 32%;
+    --secondary-foreground: 144 76% 98%;
+
+    --muted: 142 12% 94%;
+    --muted-foreground: 142 10% 40%;
+
+    --accent: 201 96% 92%;
+    --accent-foreground: 201 96% 24%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 142 12% 90%;
+    --input: 142 12% 90%;
+    --ring: 142 76% 40%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 142 12% 98%;
+    --sidebar-foreground: 142 10% 20%;
+    --sidebar-primary: 142 76% 36%;
+    --sidebar-primary-foreground: 144 76% 98%;
+    --sidebar-accent: 142 12% 94%;
+    --sidebar-accent-foreground: 142 76% 20%;
+    --sidebar-border: 142 12% 90%;
+    --sidebar-ring: 142 76% 40%;
+  }
+
+  .dark {
+    --background: 142 24% 10%;
+    --foreground: 144 76% 90%;
+
+    --card: 142 24% 12%;
+    --card-foreground: 144 76% 90%;
+
+    --popover: 142 24% 12%;
+    --popover-foreground: 144 76% 90%;
+
+    --primary: 142 76% 40%;
+    --primary-foreground: 144 76% 98%;
+
+    --secondary: 201 96% 32%;
+    --secondary-foreground: 144 76% 98%;
+
+    --muted: 142 24% 20%;
+    --muted-foreground: 142 10% 70%;
+
+    --accent: 201 96% 20%;
+    --accent-foreground: 201 96% 92%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 142 24% 20%;
+    --input: 142 24% 20%;
+    --ring: 142 76% 40%;
+
+    --sidebar-background: 142 24% 12%;
+    --sidebar-foreground: 144 76% 90%;
+    --sidebar-primary: 142 76% 40%;
+    --sidebar-primary-foreground: 144 76% 98%;
+    --sidebar-accent: 142 24% 18%;
+    --sidebar-accent-foreground: 144 76% 90%;
+    --sidebar-border: 142 24% 20%;
+    --sidebar-ring: 142 76% 40%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Smooth theme transitions */
+  * {
+    transition: background-color 0.15s ease-in-out, 
+                border-color 0.15s ease-in-out, 
+                color 0.15s ease-in-out;
+  }
+  
+  /* Exclude certain elements from transitions for better performance */
+  img, svg, canvas, video {
+    transition: none;
+  }
+}
+
+.wellness-gradient {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+}
+
+/* Dashboard Layout Classes */
+.dashboard-card-small {
+  --card-padding: 1rem;
+  --card-gap: 0.75rem;
+  --card-border-radius: 0.5rem;
+}
+
+.dashboard-card-medium {
+  --card-padding: 1.5rem;
+  --card-gap: 1rem;
+  --card-border-radius: 0.75rem;
+}
+
+.dashboard-card-large {
+  --card-padding: 2rem;
+  --card-gap: 1.5rem;
+  --card-border-radius: 1rem;
+}
+
+/* Layout-specific styles */
+.layout-compact {
+  --max-width: 64rem; /* max-w-5xl */
+  --container-padding: 1rem;
+}
+
+.layout-standard {
+  --max-width: 72rem; /* max-w-6xl */
+  --container-padding: 1.5rem;
+}
+
+.layout-detailed {
+  --max-width: 80rem; /* max-w-7xl */
+  --container-padding: 2rem;
+}
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px -10px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  @apply p-3 rounded-xl bg-primary/10 text-primary;
+}
+
+.hero-mask {
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1.0) 50%, transparent 100%);
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Custom scrollbar utility - hidden on small devices */
+.scrollbar-thin-muted::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollbar-thin-muted::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin-muted::-webkit-scrollbar-thumb {
+  background-color: rgb(203 213 225);
+  border-radius: 8px;
+}
+.scrollbar-thin-muted::-webkit-scrollbar-thumb:hover {
+  background-color: rgb(148 163 184);
+}
+
+/* Custom scrollbar for small devices */
+@media (max-width: 639px) {
+  .scrollbar-thin-muted::-webkit-scrollbar {
+    width: 4px;
+  }
+  .scrollbar-thin-muted::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin-muted::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 4px;
+  }
+  .scrollbar-thin-muted::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--muted-foreground) / 0.5);
+  }
+}
+
+/* Global custom scrollbar styles matching the app theme */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.35) transparent;
+}
+
+/* WebKit */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted-foreground) / 0.25);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--muted-foreground) / 0.45);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+@media (max-width: 639px) {
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+}

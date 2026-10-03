@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Wellness AI Lens - AI-Powered Food Analysis & Nutrition Tracking Platform
+    </title>
+    <meta
+      name="description"
+      content="Transform your health journey with Wellness AI Lens - Your intelligent companion for food analysis, nutrition tracking, and personalized health insights. Scan food labels instantly, track nutrients, and make informed dietary choices."
+    />
+    <meta
+      name="keywords"
+      content="wellness ai lens, food analysis, nutrition tracking, ai food scanner, health monitoring, dietary analysis, nutrition app, food label scanner, healthy eating, meal planning, artificial intelligence, wellness technology, health app, nutritionist, diet tracker, calorie counter, macro tracking, health insights, personalized nutrition"
+    />
+    <meta name="author" content="Wellness AI Lens Team" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="language" content="English" />
+    <meta name="theme-color" content="#5a7460" />
+    <meta name="msapplication-TileColor" content="#5a7460" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Wellness AI Lens" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://wellness-ai-lens.vercel.app" />
+
+    <!-- Favicon and Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/icons/icon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/icons/icon-32x32.png"
+    />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Wellness AI Lens" />
+    <meta property="og:url" content="https://wellness-ai-lens.vercel.app" />
+    <meta
+      property="og:title"
+      content="Wellness AI Lens - AI-Powered Food Analysis & Nutrition Tracking Platform"
+    />
+    <meta
+      property="og:description"
+      content="Transform your health journey with Wellness AI Lens - Your intelligent companion for food analysis, nutrition tracking, and personalized health insights. Scan food labels instantly and make informed dietary choices."
+    />
+    <meta
+      property="og:image"
+      content="https://wellness-ai-lens.vercel.app/og-image.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Wellness AI Lens - AI-Powered Food Analysis Platform"
+    />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@wellnessailens" />
+    <meta name="twitter:creator" content="@wellnessailens" />
+    <meta
+      name="twitter:title"
+      content="Wellness AI Lens - AI-Powered Food Analysis & Nutrition Tracking"
+    />
+    <meta
+      name="twitter:description"
+      content="Transform your health journey with AI-powered food analysis and nutrition tracking. Get instant insights from food labels and make informed dietary choices."
+    />
+    <meta
+      name="twitter:image"
+      content="https://wellness-ai-lens.vercel.app/og-image.png"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Wellness AI Lens - AI-Powered Food Analysis Platform"
+    />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="application-name" content="Wellness AI Lens" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Wellness AI Lens",
+        "description": "AI-Powered Food Analysis & Nutrition Tracking Platform",
+        "url": "https://wellness-ai-lens.vercel.app",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "Wellness AI Lens Team"
+        },
+        "featureList": [
+          "AI Food Analysis",
+          "Nutrition Tracking",
+          "Health Monitoring",
+          "Personalized Insights",
+          "Meal Planning",
+          "Dietary Analysis"
+        ]
+      }
+    </script>
+
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.gtranslate.net" />
+    <link rel="preconnect" href="https://cdn.gpteng.co" />
+
+    <!-- DNS Prefetch for performance -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//cdn.gtranslate.net" />
+    <link rel="dns-prefetch" href="//cdn.gpteng.co" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <div class="gtranslate_wrapper"></div>
+    <script>
+      window.gtranslateSettings = {
+        default_language: "en",
+        native_language_names: true,
+        detect_browser_language: true,
+        display_flags: true,
+        display_language_names: true,
+        display_google_translate: false,
+        languages_blacklist: [],
+        switcher_horizontal_position: "right",
+        switcher_vertical_position: "bottom",
+        languages: [
+          "en", // English
+          "es", // Spanish
+          "fr", // French
+          "de", // German
+          "it", // Italian
+          "pt", // Portuguese
+          "ru", // Russian
+          "ja", // Japanese
+          "ko", // Korean
+          "zh-CN", // Chinese (Simplified)
+          "zh-TW", // Chinese (Traditional)
+          "ar", // Arabic
+          "hi", // Hindi
+          "bn", // Bengali
+          "te", // Telugu
+          "mr", // Marathi
+          "ta", // Tamil
+          "gu", // Gujarati
+          "kn", // Kannada
+          "ml", // Malayalam
+          "pa", // Punjabi
+
+          "ur", // Urdu
+          "ne", // Nepali
+          "si", // Sinhala
+          "th", // Thai
+          "vi", // Vietnamese
+          "id", // Indonesian
+          "ms", // Malay
+          "tl", // Filipino
+          "tr", // Turkish
+          "pl", // Polish
+          "nl", // Dutch
+          "sv", // Swedish
+          "da", // Danish
+          "no", // Norwegian
+          "fi", // Finnish
+          "cs", // Czech
+          "sk", // Slovak
+          "hu", // Hungarian
+          "ro", // Romanian
+          "bg", // Bulgarian
+          "hr", // Croatian
+          "sr", // Serbian
+          "sl", // Slovenian
+          "et", // Estonian
+          "lv", // Latvian
+          "lt", // Lithuanian
+          "uk", // Ukrainian
+          "be", // Belarusian
+          "mk", // Macedonian
+          "sq", // Albanian
+          "mt", // Maltese
+          "is", // Icelandic
+          "ga", // Irish
+          "cy", // Welsh
+          "eu", // Basque
+          "ca", // Catalan
+          "gl", // Galician
+          "af", // Afrikaans
+          "sw", // Swahili
+          "am", // Amharic
+          "fa", // Persian
+          "ps", // Pashto
+          "sd", // Sindhi
+          "my", // Myanmar
+          "km", // Khmer
+          "lo", // Lao
+          "ka", // Georgian
+          "hy", // Armenian
+          "az", // Azerbaijani
+          "kk", // Kazakh
+          "ky", // Kyrgyz
+          "uz", // Uzbek
+          "tg", // Tajik
+          "mn", // Mongolian
+        ],
+        wrapper_selector: ".gtranslate_wrapper",
+        flag_style: "3d",
+      };
+    </script>
+    <script
+      src="https://cdn.gtranslate.net/widgets/latest/float.js"
+      defer
+    ></script>
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+    <script type="module" src="/src/main.tsx"></script>
+    <script src="/index.js"></script>
+
+    <style>
+      .gt_float_switcher {
+        background-color: #1b3427 !important;
+        color: #ffffff !important;
+        border: 0.5px solid rgba(255, 255, 255, 0.8) !important;
+      }
+
+      .nturl {
+        color: #ffffff !important;
+      }
+
+      .gt-selected {
+        background-color: #5a7460 !important;
+      }
+      /* Position the translate widget at bottom right */
+      .gtranslate_wrapper {
+        position: fixed !important;
+        bottom: 20px !important;
+        background-color: #1b3427 !important;
+        right: 20px !important;
+        z-index: 9999 !important;
+      }
+
+      /* Style the current language button */
+      .gt-current-lang {
+        width: 50px !important;
+        height: 30px !important;
+        background-color: #1b3427 !important;
+        border: 0.5px solid rgba(255, 255, 255, 0.8) !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        transition: all 0.3s ease !important;
+        font-size: 14px !important;
+        color: #ffffff !important;
+        font-weight: bold !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+      }
+
+      /* Remove the globe icon */
+      .gt-current-lang::before {
+        display: none !important;
+      }
+
+      /* Show the flag image */
+      .gt-current-lang img {
+        display: block !important;
+        width: 24px !important;
+        height: 18px !important;
+        border-radius: 3px !important;
+        object-fit: cover !important;
+      }
+
+      /* Show the language text */
+      .gt-current-lang .gt-lang-text {
+        display: none !important;
+      }
+
+      /* Hover effect */
+      .gt-current-lang:hover {
+        background-color: #35643f !important;
+
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
+        border-color: rgba(255, 255, 255, 1) !important;
+      }
+
+      /* Style the dropdown */
+      .gt-lang-list {
+        position: absolute !important;
+        bottom: 60px !important;
+        right: 0 !important;
+        background: #2aa042 !important;
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15) !important;
+        max-height: 300px !important;
+        overflow-y: auto !important;
+        min-width: 200px !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+      }
+
+      /* Style individual language options */
+      .gt-lang-list a {
+        display: flex !important;
+        align-items: center !important;
+        padding: 12px 16px !important;
+        text-decoration: none !important;
+        color: #333 !important;
+        border-bottom: 1px solid rgba(240, 240, 240, 0.5) !important;
+        transition: all 0.2s ease !important;
+        font-size: 14px !important;
+        font-weight: 500 !important;
+      }
+
+      .gt-lang-list a:hover {
+        background-color: rgba(74, 144, 226, 0.1) !important;
+        color: #4a90e2 !important;
+      }
+
+      .gt-lang-list a:last-child {
+        border-bottom: none !important;
+        border-radius: 0 0 12px 12px !important;
+      }
+
+      .gt-lang-list a:first-child {
+        border-radius: 12px 12px 0 0 !important;
+      }
+
+      /* Style flags in dropdown */
+      .gt-lang-list img {
+        width: 20px !important;
+        height: 15px !important;
+        margin-right: 12px !important;
+        border-radius: 2px !important;
+        object-fit: cover !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* Custom scrollbar for dropdown */
+      .gt-lang-list::-webkit-scrollbar {
+        width: 6px !important;
+      }
+
+      .gt-lang-list::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1) !important;
+        border-radius: 3px !important;
+      }
+
+      .gt-lang-list::-webkit-scrollbar-thumb {
+        background: rgba(74, 144, 226, 0.5) !important;
+        border-radius: 3px !important;
+      }
+
+      .gt-lang-list::-webkit-scrollbar-thumb:hover {
+        background: rgba(74, 144, 226, 0.7) !important;
+      }
+
+      /* Hide undefined language entries */
+      .gt-lang-list a[title="undefined"],
+      .gt-lang-list a:empty,
+      .gt-lang-list a:not([title]) {
+        display: none !important;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
+        .gtranslate_wrapper {
+          bottom: 15px !important;
+          right: 15px !important;
+        }
+
+        .gt-current-lang {
+          width: 45px !important;
+          height: 30px !important;
+        }
+
+        .gt-lang-list {
+          max-height: 250px !important;
+          min-width: 180px !important;
+          right: -10px !important;
+        }
+
+        .gt-lang-list a {
+          padding: 10px 14px !important;
+          font-size: 13px !important;
+        }
+      }
+
+      /* Animation for dropdown appearance */
+      .gt-lang-list {
+        opacity: 0 !important;
+        transform: translateY(10px) scale(0.95) !important;
+        animation: fadeInUp 0.3s ease forwards !important;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1 !important;
+          transform: translateY(0) scale(1) !important;
+        }
+      }
+    </style>
+  </body>
+</html>

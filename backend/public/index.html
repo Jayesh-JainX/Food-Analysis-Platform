@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image + Text Prompt Inference</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 2rem;
+        background: #f9f9f9;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+        background: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      label,
+      input,
+      textarea {
+        display: block;
+        width: 100%;
+        margin: 1rem 0;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+      #result {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: #efefef;
+        border-left: 4px solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Image + Prompt Inference</h1>
+      <form id="upload-form">
+        <label for="image">Upload Image:</label>
+        <input type="file" id="image" name="image" accept="image/*" required />
+
+        <label for="prompt">Prompt (text):</label>
+        <textarea
+          id="prompt"
+          name="prompt"
+          rows="3"
+          placeholder="Describe this image..."
+          required
+        ></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
+
+      <div id="result" style="display: none"></div>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
